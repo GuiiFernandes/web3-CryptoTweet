@@ -16,11 +16,11 @@ export default function PageLayout({ children }) {
     <>
       <Head>
         <title>CrypTweet | Login</title>
-        <meta charSet="utf-8" />
+        <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <div className={ `m-0 px-4 py-5 min-vh-100 vw-100 ${styleTheme} ${flex}` }>
-        <div className="position-fixed w-100 top-0">
+      <div className={ `m-0 px-4 py-5 min-vh-100 ${styleTheme} ${flex}` }>
+        <div className="position-fixed top-0">
           <label
             htmlFor="theme-switcher"
             className="position-fixed top-0 end-0 text-warning fs-3 m-3"

@@ -3,13 +3,15 @@ import { useRouter } from 'next/navigation';
 import { FaTwitter } from 'react-icons/fa';
 
 import Context from '../context/Context';
-import { addTweet } from '../services/web3Service';
+import { addTweet, getLastTweets } from '../services/web3Service';
 
 const MAX_LENGTH = 150;
+const MIN_LENGTH = 3;
+const UPDATE_TIME = 10000;
 
 export default function FormTweet() {
   const { push } = useRouter();
-  const { theme, message, setMessage } = useContext(Context);
+  const { theme, message, setMessage, setPage, setTweets } = useContext(Context);
   const [styleMessage, setStyleMessage] = useState('');
   const [tweet, setTweet] = useState('');
   const styleTheme = theme === 'dark' ? 'bg-dark text-light' : 'bg-light text-dark';
@@ -18,6 +20,19 @@ export default function FormTweet() {
     const wallet = localStorage.getItem('wallet');
     if (!wallet) push('/');
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (message.includes('Tweet enviado, aguarde a confirmação da rede.')) {
+        setTimeout(async () => {
+          const results = await getLastTweets(1);
+          setPage(1);
+          setTweets(results);
+          setMessage('');
+        }, UPDATE_TIME);
+      }
+    })();
+  }, [message]);
 
   const handleSubmit = async () => {
     try {
@@ -36,6 +51,7 @@ export default function FormTweet() {
 
   return (
     <form
+      className="mb-4"
       onSubmit={ (e) => {
         e.preventDefault();
         handleSubmit();
@@ -62,6 +78,7 @@ export default function FormTweet() {
         <button
           className="btn btn-outline-info"
           id="button-addon2"
+          disabled={ tweet.length < MIN_LENGTH }
         >
           Tweetar
         </button>

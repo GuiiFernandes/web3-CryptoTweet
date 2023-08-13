@@ -8,13 +8,22 @@ import Context from './Context';
 export default function ProviderContext({ children }) {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
   const [message, setMessage] = useState('');
+  const [tweets, setTweets] = useState([]);
+  const [page, setPage] = useState(1);
+  const [status, setStatus] = useState('Carregando...');
 
   const store = useMemo(() => ({
     theme,
     setTheme,
     message,
     setMessage,
-  }), [theme, message]);
+    tweets,
+    setTweets,
+    page,
+    setPage,
+    status,
+    setStatus,
+  }), [theme, message, tweets, page, status]);
 
   return (
     <Context.Provider value={ store }>
