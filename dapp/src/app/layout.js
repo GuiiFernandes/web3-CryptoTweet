@@ -1,5 +1,6 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import PropTypes from 'prop-types';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const metadata = {
   title: 'Next.js',
@@ -9,7 +10,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="min-vh-100">{children}</body>
+      <body className="min-vh-100 w-100">
+        {children}
+      </body>
     </html>
   );
 }
