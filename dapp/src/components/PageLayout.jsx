@@ -1,16 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 
+import Context from '../context/Context';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function PageLayout({ children }) {
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
-
+  const { theme, setTheme } = useContext(Context);
   const styleTheme = theme === 'dark' ? 'bg-dark text-light' : 'bg-light text-dark';
-  const flex = 'd-flex justify-content-center align-items-center';
+  const flex = 'd-flex justify-content-center';
 
   return (
     <>
@@ -20,7 +20,7 @@ export default function PageLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div className={ `m-0 px-4 py-5 min-vh-100 vw-100 ${styleTheme} ${flex}` }>
-        <header className="position-fixed w-100 top-0">
+        <div className="position-fixed w-100 top-0">
           <label
             htmlFor="theme-switcher"
             className="position-fixed top-0 end-0 text-warning fs-3 m-3"
@@ -38,7 +38,7 @@ export default function PageLayout({ children }) {
             />
             { theme === 'dark' ? '🌙' : '☀️' }
           </label>
-        </header>
+        </div>
         { children }
       </div>
     </>
