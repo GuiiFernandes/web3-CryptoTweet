@@ -7,7 +7,7 @@ import { addTweet, getLastTweets } from '../services/web3Service';
 
 const MAX_LENGTH = 150;
 const MIN_LENGTH = 3;
-const UPDATE_TIME = 10000;
+const UPDATE_TIME = 12000;
 
 export default function FormTweet() {
   const { push } = useRouter();
